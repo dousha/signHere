@@ -8,7 +8,9 @@ function input_pair(string $label,
 	$content = '
 			<div class="form-group">
 				<div class="row">
-					<label for="' . $name . '" class="col-xs-2 control-label">' 
+					<label for="' 
+						. $name 
+						. '" class="col-xs-2 control-label">' 
 						. $label 
 						. '</label>
 					<div class="col-xs-10">';
@@ -20,7 +22,9 @@ function input_pair(string $label,
 							. $name
 							. '" value="' 
 							. $option
-							.'">'
+							.'"'
+							. ($option == $value?'checked="true"':'')
+							.'>'
 							. $option
 							. '</label>';
 		}
@@ -33,7 +37,9 @@ function input_pair(string $label,
 							. $name
 							. '" value="' 
 							. $option
-							.'">'
+							. '"'
+							. ($option == $value?'checked="true"':'')
+							.'>'
 							. $option
 							. '</label>';
 		}
@@ -71,7 +77,12 @@ function form_heading(){
 
 function form_body(){
 	$bdy = '
-		<form class="form-horizontal" action="confirm.php" method="post">
+		<form enctype="multipart/form-data" 
+				class="form-horizontal" 
+				action="confirm.php" 
+				method="post"
+				id="frm"
+				name="frm">
 			<div class="container-fluid">'
 			. form_title('个人信息', 'cv')
 			. input_pair('姓名', 'name')
@@ -83,10 +94,16 @@ function form_body(){
 			. input_pair('所获荣誉', 'prize', '', 'checkbox', '', '市级任意竞赛二等奖及以上', '市级三好学生及以上')
 			. input_pair('家庭住址', 'addr')
 			. input_pair('手机号码', 'phone', '可留空')
-			. input_pair('住宿类型', 'dorm', '', 'radio', '', '走读', '住宿')
-			. input_pair('志愿语种', 'lang', '', 'radio', '', '英语', '日语')
+			. input_pair('住宿类型', 'dorm', '', 'radio', '走读', '走读', '住宿')
+			. input_pair('志愿语种', 'lang', '', 'radio', '英语', '英语', '日语')
 			. input_pair('一寸免冠照片', 'photo', '', 'file')
-			. '<br>'
+			. '<div class="col-xs-offset-2 col-xs-10">
+					<canvas id="photo_ctrl" 
+							width="150"
+							height="220">
+						<a href="browser_warn.php">请升级您的浏览器或更换一个现代浏览器</a>
+					</canvas>
+				</div><br>' # FIXME
 			. form_title('监护人信息', 'parent')
 			. input_pair('姓名', 'p_name')
 			. input_pair('与被监护人关系', 'p_relationship')
@@ -95,7 +112,7 @@ function form_body(){
 			. input_pair('手机号码', 'p_phone')
 			.'<div class="form-group">
 					<div class="col-xs-offset-2 col-xs-10">
-						<button type="submit" class="btn btn-primary">注册</button>
+						<button type="button" class="btn btn-primary" onclick="submit_form()">注册</button>
 						<button type="reset" class="btn btn-default">重置表单</button>
 					</div>
 				</div>
