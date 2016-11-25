@@ -8,7 +8,7 @@
 	include("lib/popup.php");
 	head('洛阳外国语学校在线报名系统');
 ?>
-<body>
+<body style="margin-top:5px;">
 	<noscript>
 		<p>
 			This page requires Javascript and Cookies enabled to work.<br>

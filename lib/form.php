@@ -64,11 +64,7 @@ function form_title(string $title, string $id, string $icon = 'pencil'){
 			. $id 
 			. '">' 
 			. $title 
-			. '<span id="' 
-			. $id 
-			. '_status" class="glyphicon glyphicon-'
-			. $icon
-			. '"></span></h2><hr>';
+			. '</h2><hr>';
 }
 
 function form_heading(){
@@ -105,17 +101,29 @@ function form_body(){
 					</canvas>
 				</div><br>' # FIXME
 			. form_title('监护人信息', 'parent')
-			. input_pair('姓名', 'p_name')
-			. input_pair('与被监护人关系', 'p_relationship')
-			. input_pair('民族', 'p_race')
-			. input_pair('身份证号', 'p_ident', '123456789012345678 或 12345678901234567X')
-			. input_pair('手机号码', 'p_phone')
-			.'<div class="form-group">
+			. '<div id="parent_1">'
+			. input_pair('姓名', 'p_name_1')
+			. input_pair('与被监护人关系', 'p_relationship_1')
+			. input_pair('民族', 'p_race_1')
+			. input_pair('身份证号', 'p_ident_1', '123456789012345678 或 12345678901234567X')
+			. input_pair('手机号码', 'p_phone_1')
+			. '</div>'
+			. '<div class="form-group">
+				<div class="col-xs-offset-2 col-xs-10">
+					<button type="button" id="p_add" class="btn btn-primary" onclick="add_parent()">添加监护人</button>
+					<button type="button" id="p_del" class="btn btn-default disabled" onclick="del_parent()">移除监护人</button>
+				</div>
+			</div>'
+			.'<hr>
+			<div class="form-group">
 					<div class="col-xs-offset-2 col-xs-10">
 						<button type="button" class="btn btn-primary" onclick="submit_form()">注册</button>
 						<button type="reset" class="btn btn-default">重置表单</button>
 					</div>
 				</div>
+			</div>
+			<div class="hidden">
+				<span id="parent_count">1</span>
 			</div>
 		</form>';
 	return $bdy;
